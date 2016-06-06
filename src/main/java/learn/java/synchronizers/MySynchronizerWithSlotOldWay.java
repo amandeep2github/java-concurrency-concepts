@@ -1,17 +1,20 @@
 package learn.java.synchronizers;
 
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
-
-public class MySynchronizerLockImpl implements MySynchronizer{
+public class MySynchronizerWithSlotOldWay implements MySynchronizer {
 	private int[] printSlot = new int[3];
-	Lock lock = new ReentrantLock();
 
-	public void controlPrinting(int numberToPrint){
+	/* (non-Javadoc)
+	 * @see learn.java.synchronizers.MySynchronizerI#controlPrinting(int)
+	 */
+	public synchronized void controlPrinting(int numberToPrint){
 		while(printSlot[numberToPrint-1] != 0)
-				lock.lock();
-
+			try {
+				wait();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		printSlot[numberToPrint-1] = numberToPrint;
 		boolean allSlotsFilled = true;
 		for(int i: printSlot){
@@ -25,7 +28,7 @@ public class MySynchronizerLockImpl implements MySynchronizer{
 				System.out.print(i);
 			}
 			reset();
-			lock.unlock();
+			notifyAll();
 		}
 	}
 	

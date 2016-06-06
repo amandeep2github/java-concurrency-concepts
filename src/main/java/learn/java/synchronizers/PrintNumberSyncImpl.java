@@ -1,14 +1,19 @@
 package learn.java.synchronizers;
 
-public class PrintNumber1 implements Runnable {
+public class PrintNumberSyncImpl implements Runnable {
 
 	private int numberToPrint;
 	private MySynchronizer mySm;
 	
-	
+	public int getNumberToPrint() {
+		return numberToPrint;
+	}
 
+	public void setNumberToPrint(int numberToPrint) {
+		this.numberToPrint = numberToPrint;
+	}
 
-	public PrintNumber1(int number, MySynchronizer mySm) {
+	public PrintNumberSyncImpl(int number, MySynchronizer mySm) {
 		super();
 		this.numberToPrint = number;
 		this.mySm = mySm;
