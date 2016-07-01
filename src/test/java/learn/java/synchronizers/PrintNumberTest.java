@@ -92,6 +92,7 @@ public class PrintNumberTest {
 	}
 	
 	@Test
+	//@Ignore
 	public void testWithSynchronizationWithoutSlotUsingLockImpl() {
 		ByteArrayOutputStream baos= new ByteArrayOutputStream(500);
 		PrintStream ps = System.out;
